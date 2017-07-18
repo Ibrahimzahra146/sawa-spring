@@ -21,8 +21,8 @@ public interface LoginRepository extends JpaRepository<User,Integer>
 	@Query("SELECT u from User u WHERE u.email = :email")
 	public User findUserByEmail(@Param("email") String email);
 	
-	@Query("SELECT u from User u WHERE u.email = :email and u.password=:password")
-	public User verifyEmailAndPassword(@Param("email") String email,@Param("password") String password);
+	@Query("SELECT u from User u WHERE u.email = :email")
+	public User verifyEmailAndPassword(@Param("email") String email);
 	
 	@Transactional
 	@Modifying

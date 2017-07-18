@@ -23,18 +23,20 @@ public class AboutUserServiceImpl implements AboutUserService {
 	public AboutUser addNewAboutUser(AboutUserModel aboutUserModel) {
 		// TODO Auto-generated method stub
 		System.out.println("aboutUserModel.getUserId()"+aboutUserModel.getUserId());
-
-		if(aboutUserRep.findAboutUserById(aboutUserModel.getUserId())==null){
-			System.out.println("aboutUserModel.getUserId()"+aboutUserModel.getUserId());
-			User user=loginRep.findUserById(aboutUserModel.getUserId());
-			AboutUser aboutUser=new AboutUser();
-			aboutUser.setUser(user);
-			aboutUser.setUserBio(aboutUserModel.getUserBio());
-			aboutUser.setUserStatus(aboutUserModel.getUserStatus());
-			aboutUser.setUserSong(aboutUserModel.getUserSong());
-			 return aboutUserRep.save(aboutUser);
-		}else 
-		return null;
+		User user=loginRep.findUserById(aboutUserModel.getUserId());
+		AboutUser aboutUser=new AboutUser();
+		aboutUser.setUser(user);
+		aboutUser.setUserBio(aboutUserModel.getUserBio());
+		aboutUser.setUserStatus(aboutUserModel.getUserStatus());
+		aboutUser.setUserSong(aboutUserModel.getUserSong());
+		if(aboutUserRep.findAboutUserById(aboutUserModel.getUserId())!=null){
+		
+			AboutUser  aboutUserId=aboutUserRep.findAboutUserById(aboutUserModel.getUserId());
+			int id=aboutUserId.getId();
+			aboutUser.setId(id);
+		}
+		
+		return aboutUserRep.save(aboutUser);
 	}
 	@Override
 	public AboutUser findAboutUserById(int userId) {

@@ -20,4 +20,6 @@ public interface AboutUserRepository extends JpaRepository<AboutUser,Integer>  {
 	@Modifying
 	@Query("Update AboutUser a set a.userBio=:userBio,a.userStatus=:userStatus,a.userSong=:userSong WHERE a.user.id=:id")
 	public int editABoutUser(@Param("id") int id,@Param("userBio")String userBio,@Param("userStatus")String userStatus,@Param("userSong")String userSong);
+
+
 }

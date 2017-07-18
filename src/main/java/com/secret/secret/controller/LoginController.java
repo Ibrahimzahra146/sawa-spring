@@ -1,5 +1,7 @@
 package com.secret.secret.controller;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.secret.secret.model.User;
+import com.secret.secret.request.LoginWithFacebookRequestModel;
+import com.secret.secret.request.LoginWithGeneralModel;
+import com.secret.secret.request.LoginWithGoogleRequestModel;
 import com.secret.secret.request.SignUpModel;
 import com.secret.secret.request.UserDeviceIdModel;
 import com.secret.secret.request.signInModel;
 import com.secret.secret.service.LoginService;
 import com.secret.secret.service.LoginServiceImpl;
 import com.secret.secret.utils.Constants;
+import com.secret.secret.utils.GoogleUtil;
+import com.secret.secret.utils.LoginWithTypes;
 
 
 
 @RestController
 public class LoginController {
-	
+	LoginWithTypes loginWithTypes=new LoginWithTypes();
 	@Autowired
 	LoginService loginService;
 	
@@ -37,6 +44,7 @@ public class LoginController {
 	{
 		return loginService.findUserById(id);
 	}
+	
 
 	@RequestMapping(value="/api/v1/user/signUp",method=RequestMethod.POST)
     @ResponseBody
@@ -64,19 +72,43 @@ public class LoginController {
 
 	  }
 	}
+	@RequestMapping(value="/api/v1/user/login-with-facebook",method=RequestMethod.POST)
+    @ResponseBody
+	public ResponseEntity<User> loginWithFacebook(@RequestBody LoginWithFacebookRequestModel loginWithFacebookRequestModel)
+	{	
+		LoginWithGeneralModel loginWithModel=new LoginWithGeneralModel();
+		loginWithModel=loginWithFacebookRequestModel;
+		return loginService.loginWith(loginWithModel,loginWithTypes.FACEBOOK_LOGIN);
+		
+	}
+	//Login with google
+	
+	@RequestMapping(value="/api/v1/user/login-with-google",method=RequestMethod.POST)
+    @ResponseBody
+	public ResponseEntity<User> loginWithGoogle(@RequestBody LoginWithGoogleRequestModel loginWithGoogleRequestModel)
+	{	
+		LoginWithGeneralModel loginWithModel=new LoginWithGeneralModel();
+		loginWithModel=loginWithGoogleRequestModel;
+		return loginService.loginWith(loginWithModel,loginWithTypes.GOOGLE_LOGIN);
+		
+	}
+	
 	@RequestMapping(value="/api/v1/user/signIn",method=RequestMethod.POST)
     @ResponseBody
 	public ResponseEntity<User> signIn(@RequestBody signInModel model)
 	{	
-		User user=loginService.verifyEmailAndPassword(model.getEmail(), model.getPassword());
+		User user=loginService.verifyEmailAndPassword(model.getEmail());
 
 		if(user==null){
-		  return new ResponseEntity<>(null,HttpStatus.CONFLICT);
+		  return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
 
 	}
 		
 	  else{
+		  if(user.getPassword().equals(model.getPassword()))
 		  return new ResponseEntity<>(user,HttpStatus.OK);
+		  else 
+			  return new ResponseEntity<>(null,HttpStatus.CONFLICT);
 
 	  }
 	}

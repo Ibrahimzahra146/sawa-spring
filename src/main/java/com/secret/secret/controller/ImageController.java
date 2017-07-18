@@ -29,8 +29,9 @@ public class ImageController {
 	   @RequestMapping(value = "api/v1/uploadFile", method = RequestMethod.POST)
 	   @ResponseBody
 	   public void  uploadFile(
-	       @RequestParam("uploadfile") MultipartFile[] uploadfile,@RequestParam("userId") int userId) {
-		   imageService.saveUserImage(uploadfile,userId);
+	       @RequestParam("uploadfile") MultipartFile[] uploadfile) {
+		   
+		   imageService.saveUserImage(uploadfile,1);
 	
 
 	   
