@@ -16,4 +16,11 @@ public interface ImageRepository extends JpaRepository<User,Integer>  {
 	@Modifying
 	@Query("UPDATE User u set u.image=:image WHERE u.id=:userId ")
 	public int updateUserImage(@Param("userId")int userId,@Param("image")String image);
+	@Transactional
+	@Modifying
+	@Query("UPDATE User u set u.cover_image=:image WHERE u.id=:userId ")
+	public int updateCoverPic(@Param("userId")int userId,@Param("image")String image);
+
+	
+
 }

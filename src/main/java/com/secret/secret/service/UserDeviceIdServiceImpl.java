@@ -32,12 +32,13 @@ public class UserDeviceIdServiceImpl implements UserDeviceIdService {
 		// TODO Auto-generated method stub
 		User user=loginService.findUserById(userDeviceIdModel.getUserId());
 		DeviceToken device=deviceTokenRep.findDeviceToken( userDeviceIdModel.getDeviceId());
-		System.out.println("userDeviceIdModel.getDeviceId()"+userDeviceIdModel.getDeviceId());
 		UserDeviceId userDeviceId=userDeviceIdRep.findUserDeviceId(userDeviceIdModel.getUserId(), userDeviceIdModel.getDeviceId());
 		if(userDeviceId==null){
+			System.out.println("userDeviceIdModel.getDeviceId()"+userDeviceIdModel.getDeviceId());
+
 			UserDeviceId temp=new UserDeviceId();
 			temp.setUserId(user);
-			temp.setDeviceId(device);
+			temp.setDeviceId(device); 	
 			userDeviceIdRep.save(temp);
 			return new ResponseEntity<>(temp,HttpStatus.OK);
 		}

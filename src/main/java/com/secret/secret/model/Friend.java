@@ -33,6 +33,8 @@ public class Friend {
 	User friend2_id;
 	@NotNull
 	int state;
+
+	
 	
 	public int getId() {
 		return id;
@@ -41,6 +43,7 @@ public class Friend {
 		this.id = id;
 	}
 
+
 	public int getState() {
 		return state;
 	}
@@ -48,7 +51,7 @@ public class Friend {
 		this.state = state;
 	}
 	
-	public User getFriend1_id() {
+	public User getFriend1_id() {	
 		return friend1_id;
 	}
 	public void setFriend1_id(User friend1_id) {

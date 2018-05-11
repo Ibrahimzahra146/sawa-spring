@@ -11,5 +11,7 @@ public interface AboutUserService {
 	public AboutUser addNewAboutUser(AboutUserModel aboutUserModel);
 	public AboutUser findAboutUserById(int userId);
 	public int editAboutUser(AboutUserModel aboutUserModel) throws IOException, JSONException;
+	public AboutUser editUserSong(AboutUserModel aboutUserModel) throws IOException, JSONException;
+
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.secret.secret.repository.ImageRepository;
 import com.secret.secret.request.ImageModel;
+import com.secret.secret.utils.Constants;
 
 @Service
 
@@ -20,31 +21,39 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     ImageRepository imageRep;
 	@Override
-	public void saveUserImage(MultipartFile[] uploadfile,int userId) {
+	public String saveUserImage(MultipartFile uploadfile,int userId,int flag) {
 		
-
+		 String filename="";
 		// TODO Auto-generated method stub
 	    List<String> files = new ArrayList<>();
-	    for(int i=0;i<uploadfile.length;i++)
-	    {
+	   /* for(int i=0;i<uploadfile.length;i++)
+	    {*/
 	    	//Get the uploaded file name 
-	     String fileName = uploadfile[i].getOriginalFilename();
+	     String fileName = uploadfile.getOriginalFilename();
 	     
 	     try {
 	       // Get the filename and build the local file path
 	      
-	       String filename = "_"+Math.random()*10000+uploadfile[i].getOriginalFilename();
+	       filename = "_"+Math.random()*10000+uploadfile.getOriginalFilename();
 	       String directory = "C:/Users/Rabee/Desktop/secret/public/";
 	       String filepath = Paths.get(directory, filename).toString();       
 	       files.add(filepath);
 	       // Save the file locally
 	       BufferedOutputStream stream =
 	           new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-	       stream.write(uploadfile[i].getBytes());
+	       stream.write(uploadfile.getBytes());
 	       stream.close();
 	       System.out.println("userId: "+userId);
+	       if(flag==0){
+		       imageRep.updateUserImage(userId, filename);
 
-	       imageRep.updateUserImage(userId, filename);
+	       }else if(flag==1){
+		       imageRep.updateCoverPic(userId, filename);
+
+	       }else if(flag==2){
+	    	   
+	       }
+
 	     }
 	     catch (Exception e) {
 	      
@@ -52,8 +61,21 @@ public class ImageServiceImpl implements ImageService {
 
 	       
 	     }
+	     return filename;
 	     
-	   }
+	   //}
+	}
+	@Override
+	public int removeProfileImage(int id) {
+		return imageRep.updateUserImage(id, Constants.defaultImage);
+		
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int removeCoverImage(int id) {
+		// TODO Auto-generated method stub
+		return imageRep.updateCoverPic(id, Constants.defaultImage);
 	}
 
 }

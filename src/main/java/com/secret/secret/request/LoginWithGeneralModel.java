@@ -7,6 +7,7 @@ public class LoginWithGeneralModel {
 	String lastName;
 	String image;
 	String id;
+	String gender;
 	public String getEmail() {
 		return email;
 	}
@@ -42,6 +43,12 @@ public class LoginWithGeneralModel {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 }

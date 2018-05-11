@@ -23,36 +23,47 @@ import com.secret.secret.service.DeviceTokenService;
 public class AboutUserController {
 	@Autowired
 	AboutUserService aboutUserService;
-	
-	@RequestMapping(value="/api/v1/user/addAboutUser",method=RequestMethod.POST)
-    @ResponseBody
-	public ResponseEntity<AboutUser> addNewAboutUser(@RequestBody AboutUserModel aboutUserModel)
-	{	
-		AboutUser aboutUser=aboutUserService.addNewAboutUser(aboutUserModel);
-		if(aboutUser!=null){
-			return new ResponseEntity<AboutUser>(aboutUser,HttpStatus.OK);
-		
-	}else 
-    return new ResponseEntity<AboutUser>(aboutUser,HttpStatus.CONFLICT)	;
- }
-	
-	@RequestMapping(value="/api/v1/user/editAboutUser",method=RequestMethod.POST)
-    @ResponseBody
-	public int editAboutUser(@RequestBody AboutUserModel aboutUserModel)
-	{	
+
+	@RequestMapping(value = "/api/v1/user/addAboutUser", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<AboutUser> addNewAboutUser(@RequestBody AboutUserModel aboutUserModel) {
+		AboutUser aboutUser = aboutUserService.addNewAboutUser(aboutUserModel);
+		if (aboutUser != null) {
+			return new ResponseEntity<AboutUser>(aboutUser, HttpStatus.OK);
+
+		} else
+			return new ResponseEntity<AboutUser>(aboutUser, HttpStatus.CONFLICT);
+	}
+
+	@RequestMapping(value = "/api/v1/user/editAboutUser", method = RequestMethod.POST)
+	@ResponseBody
+	public int editAboutUser(@RequestBody AboutUserModel aboutUserModel) {
 		try {
-				aboutUserService.editAboutUser(aboutUserModel);
+			aboutUserService.editAboutUser(aboutUserModel);
+
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 1;
-    }
-	
-	@RequestMapping(value="/api/v1/user/getAbout/{id}")
-    @ResponseBody
-	public AboutUser getAboutUser(@PathVariable("id") int id)
-	{
+	}
+
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/api/v1/user/getAbout/{id}")
+	@ResponseBody
+	public AboutUser getAboutUser(@PathVariable("id") int id) {
 		return aboutUserService.findAboutUserById(id);
+	}
+
+	@RequestMapping(value = "/api/v1/user/editUserSong", method = RequestMethod.POST)
+	@ResponseBody
+	public AboutUser editUserSong(@RequestBody AboutUserModel aboutUserModel) throws IOException, JSONException {
+	
+		return aboutUserService.editUserSong(aboutUserModel);
+
 	}
 }

@@ -21,13 +21,12 @@ public class UserDeviceId {
 
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "deviceId")
-	
-	DeviceToken deviceId;
-	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "userId")
-	
 	User userId;
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "deviceId")
+	DeviceToken deviceId;
+
 	public DeviceToken getDeviceId() {
 		return deviceId;
 	}

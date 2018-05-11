@@ -2,39 +2,37 @@ package com.secret.secret.request;
 
 public class PostModel {
  int userId;
- int toUserId;
  String text;
- String image;
- int isAnon;
+ String link;
+ boolean is_public_comment;
 public int getUserId() {
 	return userId;
 }
 public void setUserId(int userId) {
 	this.userId = userId;
 }
-public int getToUserId() {
-	return toUserId;
-}
-public void setToUserId(int toUserId) {
-	this.toUserId = toUserId;
-}
+
+
 public String getText() {
 	return text;
 }
 public void setText(String text) {
 	this.text = text;
 }
-public String getImage() {
-	return image;
+
+public boolean getIs_public_comment() {
+	return is_public_comment;
 }
-public void setImage(String image) {
-	this.image = image;
+public void setIs_public_comment(boolean is_public_comment) {
+	this.is_public_comment = is_public_comment;
 }
-public int getIsAnon() {
-	return isAnon;
+public String getLink() {
+	return link;
 }
-public void setIsAnon(int isAnon) {
-	this.isAnon = isAnon;
+public void setLink(String link) {
+	this.link = link;
 }
+
+
  
 }

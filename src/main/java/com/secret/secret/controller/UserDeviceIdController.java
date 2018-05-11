@@ -25,8 +25,9 @@ public class UserDeviceIdController {
 	@RequestMapping(value="/api/v1/deviceToken/saveIdWithDeviceId",method=RequestMethod.POST)
     @ResponseBody
 	public ResponseEntity<UserDeviceId>  saveIdWithDeviceId(@RequestBody UserDeviceIdModel userDeviceIdModel)
-	{	
-		
+	{			System.out.println("UserDeviceIdModel"+userDeviceIdModel.getUserId());
+
+		System.out.println("UserDeviceIdModel"+userDeviceIdModel.getDeviceId());
 	//	UserDeviceId userDeviceId=userDeviceIdService.saveIdWithDeviceId(userDeviceIdModel);
 		return userDeviceIdService.saveIdWithDeviceId(userDeviceIdModel);
 	}

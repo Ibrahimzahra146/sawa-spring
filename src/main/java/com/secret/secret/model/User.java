@@ -1,17 +1,22 @@
 package com.secret.secret.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
@@ -28,32 +33,45 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "serial")
-	Integer id;
+	Integer id; 
 	
 	@NotNull
 	String first_name;
 	@NotNull
 	String last_name;
-	@NotNull
-	@Column(unique=true)
+	@Column(unique=false)
 
 	String email;
+	String deviceId;
 	@JsonIgnore
 	@NotNull
 	String password;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthdate;
+	//@Temporal(TemporalType.DATE)
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String birthdate;
 	@NotNull
-	Integer mobile;
+	String mobile;
 	@NotNull
 	String image;
 	@NotNull
+	String cover_image;
+	@NotNull
 	Integer sign_in_out;
+	
 	@NotNull
-	Integer anon_post;
+	String  isPublic;
 	@NotNull
+	String  isProfileImagePublic;
+	@NotNull
+	String  themeColor;
 	//@Column(unique=true)
 	Integer public_post_view;
+	@NotNull
+	//@Column(unique=true)
+	String gender;
+	@NotNull
+	//@Column(unique=true)
+	boolean  isActive;
 	public Integer getId() {
 		return id;
 	}
@@ -84,16 +102,16 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	public Integer getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(Integer mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	public String getImage() {
@@ -108,18 +126,58 @@ public class User {
 	public void setSign_in_out(Integer sign_in_out) {
 		this.sign_in_out = sign_in_out;
 	}
-	public Integer getAnon_post() {
-		return anon_post;
-	}
-	public void setAnon_post(Integer anon_post) {
-		this.anon_post = anon_post;
-	}
+
 	public Integer getPublic_post_view() {
 		return public_post_view;
 	}
 	public void setPublic_post_view(Integer public_post_view) {
 		this.public_post_view = public_post_view;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getCover_image() {
+		return cover_image;
+	}
+	public void setCover_image(String cover_image) {
+		this.cover_image = cover_image;
+	}
+	
+	public String getThemeColor() {
+		return themeColor;
+	}
+	public void setThemeColor(String themeColor) {
+		this.themeColor = themeColor;
+	}
+	public String getIsPublic() {
+		return isPublic;
+	}
+	public void setIsPublic(String isPublic) {
+		this.isPublic = isPublic;
+	}
+	public String getIsProfileImagePublic() {
+		return isProfileImagePublic;
+	}
+	public void setIsProfileImagePublic(String isProfileImagePublic) {
+		this.isProfileImagePublic = isProfileImagePublic;
+	}
+	public boolean getIsctive() {
+		return isActive;
+	}
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	
+	
 	/* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	    public Set<Friend> getfreinds() {
 	        return friend;
